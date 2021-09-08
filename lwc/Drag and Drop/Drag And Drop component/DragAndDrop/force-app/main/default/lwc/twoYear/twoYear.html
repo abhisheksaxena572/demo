@@ -1,0 +1,19 @@
+<template> 
+    <lightning-layout>
+        <lightning-layout-item padding="around-small"> 
+            <div class="dropcls" dropzone="link"> 
+                <div class="slds-text-heading_small" >
+                    <p style="margin-bottom: 15px;font-size:16px"><b>Two Year Plan</b> (Drop Products Below)</p>
+                  </div>
+                <div class="slds-text-heading_small" ondragover={allowDrop} ondrop={handleDrop}>
+                    <template for:each={val} for:item='item'>  
+                        <lightning-pill class="pill" id={item} key={item} label={item} onclick={handleDragStart1} draggable="true" ondragstart={handleDragStart1}>
+                            <lightning-icon icon-name="standard:cms" variant="circle"  alternative-text="Product"
+                            class="slds-m-bottom_small slds-m-right_small"></lightning-icon>
+                        </lightning-pill>
+                     </template>
+                </div>   
+            </div>                       
+        </lightning-layout-item>    
+    </lightning-layout>  
+</template> 

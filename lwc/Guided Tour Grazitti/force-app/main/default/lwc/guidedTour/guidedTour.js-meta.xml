@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+     
+     <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="bgTile" type="String" label="Tile background color." default="black" />    
+            <property name="textContent" type="String" label="Content text color." default="white" />  
+            <property name="bgStepNext" type="String" label="Step and Button background color." default="red" />    
+            <property name="textStepNext" type="String" label="Step and Button text color." default="white"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

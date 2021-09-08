@@ -1,0 +1,96 @@
+<template>
+    <div class="slds-grid slds-wrap bg slds-p-around_small">
+        <div class="slds-col c slds-medium-size_6-of-12 borderLeft">
+            <lightning-card  title="Place where to drop" icon-name="custom:custom30"></lightning-card>
+            <div class="slds-p-around_small border top">
+                <c-one-year prod={prodNames} onselect={handleProdSub} onselectlist={handleProdSub1} ></c-one-year>
+            </div>
+            <div class="slds-p-around_small border">
+                <c-two-year prod={prodNames} onpress={handleProdService} ></c-two-year>
+            </div>
+            <div class="slds-p-around_small border">
+                <c-three-year prod={prodNames} ontap={handleProdInvent}></c-three-year>
+            </div>
+            <div class="btnSave">
+                <button  onclick={saveProd} class="slds-button slds-m-top_large btnSave slds-button_success">Save</button>
+            </div>
+        </div>  
+        <div class="slds-col slds-medium-size_6-of-12 borderRight">
+            <!-- <lightning-card title="Product Names Ca tegory" icon-name="custom:custom30"></lightning-card> -->
+            <div class="slds-grid slds-wrap">
+                <div class ="slds-medium-size_6-of-12"> 
+                    <lightning-card title="Subscription Category" icon-name="standard:channel_programs">
+                        <div class="c-container">  
+                            <lightning-layout>
+                                <lightning-layout-item padding="around-small">   
+                                    <template if:true={subList.data}>                
+                                        <template for:each={subList.data} for:item="pro"> 
+                                            <div style="border: 1px solid lightgrey;margin-bottom:2px; padding-right:10px;padding-bottom:2px;" 
+                                                class="column" draggable="true" key={pro.Id} id={pro.Name}
+                                                data-item={pro.Id}  ondragstart={handleDragStart}                                        >
+                                                <div style="display: flex; flex-wrap:no-wrap">
+                                                    <lightning-card icon-name="standard:contact"> </lightning-card>
+                                                    <button  class="slds-button  pro">{pro.Name}</button>
+                                                </div>
+                                                <p style="padding-left: 50px;">Product Code:{pro.ProductCode} </p>
+                                                
+                                            </div>
+                                        </template>
+                                    </template>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </div>
+                    </lightning-card>
+                  </div>
+                <div style="padding-top:0px;" class =" slds-medium-size_6-of-12">
+                    <lightning-card title="License Category" icon-name="standard:cms">
+                        <div class="c-container">  
+                            <lightning-layout>
+                                <lightning-layout-item padding="around-small">   
+                                    <template if:true={serviceList.data}>                
+                                        <template for:each={serviceList.data} for:item="pro"> 
+                                            <div style="border: 1px solid lightgrey;margin-bottom:2px;padding-right:10px;" class="column" draggable="true" key={pro.Id} id={pro.Name}
+                                                data-item={pro.Id} ondragstart={handleDragStart}                                        >
+                                                <div style="display: flex; flex-wrap:no-wrap">
+                                                    <lightning-card icon-name="standard:customers"> </lightning-card>
+                                                    <button  class="slds-button  pro">{pro.Name}</button>
+                                                </div>
+                                                <p style="padding-left: 50px;">Product Code:{pro.ProductCode} </p>
+                                                
+                                            </div>
+                                        </template>
+                                    </template>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </div>
+                    </lightning-card>
+                </div>
+                <div class ="slds-col  slds-medium-size_6-of-12">
+                    <lightning-card title="Training Category" icon-name="standard:channel_programs">
+                        <div class="c-container">  
+                            <lightning-layout>
+                                <lightning-layout-item padding="around-small" >   
+                                    <template if:true={inventList.data}>                
+                                        <template for:each={inventList.data} for:item="pro"> 
+                                            <div style="border: 1px solid lightgrey;margin-bottom:2px;padding-right:10px;" class="column" draggable="true" key={pro.Id} id={pro.Name}
+                                                data-item={pro.Id}  ondragstart={handleDragStart}                                        >
+                                                <div style="display: flex; flex-wrap:no-wrap">
+                                                    <lightning-card icon-name="standard:contact"> </lightning-card>
+                                                    <button  class="slds-button  pro">{pro.Name}</button>
+                                                </div>
+                                                <p style="padding-left: 50px;">Product Code:{pro.ProductCode} </p>
+                                                
+                                            </div>
+                                        </template>
+                                    </template>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </div>
+                    </lightning-card>
+                </div>
+            </div>
+        </div>  
+    </div> 
+ </template>
+ 
+   

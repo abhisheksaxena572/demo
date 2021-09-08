@@ -1,0 +1,75 @@
+<aura:component  controller="feedItemClass"  implements ="force:lightningQuickAction,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" > 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name ="showSuccess" Type="List"/> 
+    <aura:attribute name="FilterBy1" type="String[]" default="['All Questions', 'Unanswered Questions','Questions With No Best Answers','Questions With Best Answer']"/>
+    <aura:attribute name="hasNext" type="Boolean" default="false"/>
+    <aura:attribute name="pageSize" type="Integer" default="4"/>
+    <aura:attribute name="totalPages" type="Integer" default="0"/>
+    <aura:attribute name="pageList" type="List"/>
+    <aura:attribute name="comments" type="List"/> 
+    <aura:attribute name="currentPageNumber" type="Integer" default="1"/>
+    <aura:attribute name="FilterBy" type="List" default="[
+                                                         {'label': 'Top Questions', 'value': 'Top Questions'},
+                                                         {'label': 'Latest Posts', 'value': 'Latest Posts'},
+                                                         {'label': 'Most Recent Activity', 'value': 'Most Recent Activity'}, 
+                                                         ]"/>
+    
+    
+    <div class="filter" >
+        <div class="slds-grid slds-wrap slds-m-bottom_large slds-grid_align-spread" >
+            <div>
+                <lightning:combobox aura:id="filter" name="filter" 
+                                    label="Sort by:" 
+                                    value="Latest Posts" 
+                                    options="{! v.FilterBy }" 
+                                    onchange="{! c.filterChange }"/>
+            </div> 
+            <div class="slds-p-top_large">  
+                <lightning:buttonMenu aura:id="menu" alternativeText="Show menu" onselect="{! c.filterChange }" 
+                                      iconName="utility:filterList" menuAlignment="right">
+                    <lightning:menuItem aura:id="menuItems" label="All Questions" value="All Questions" checked="false"  />
+                    <lightning:menuItem aura:id="menuItems" label="Unanswered Questions" value="Unanswered Questions" checked="false"  />
+                    <lightning:menuItem aura:id="menuItems" label="Questions With No Best Answers" value="Questions With No Best Answers" checked="true" />
+                    <lightning:menuItem aura:id="menuItems" label="Questions With Best Answers" value="Questions With Best Answers" checked="false" />
+                </lightning:buttonMenu>
+            </div>
+            
+        </div>
+        <aura:if isTrue="{!v.comments.length > 0}">
+            <aura:if isTrue="{!not(empty(v.comments))}">
+                <aura:iteration items="{!v.comments}" var="con">
+                    <div class="slds-border_bottom">
+                        <div class="slds-truncate slds-m-left_small slds-p-top_small slds-text-heading_small" title="{!con.Title}"> <a  data-recId1="{!con.Title}" data-recId="{!con.Id}"  onclick="{!c.handleClick}" >{!con.Title} </a></div> 
+                        <div class=" slds-p-bottom_small slds-grid slds-grid_align-spread slds-text-color_weak slds-m-horizontal_small slds-text-body_small" >
+                            <div class="slds-truncate slds-m-top_xx-small">
+                                 {!con.CreatedBy.Name} <span class="slds-m-horizontal_xx-small">&#183;</span> 
+                                <lightning:formattedDateTime value="{!con.CreatedDate}" year="numeric" day="2-digit" month="long" hour="2-digit" minute="2-digit"/> 
+                            </div>  
+                            <div  class="slds-truncate slds-grid" style="list-style:none">  
+                                <aura:if  isTrue="{!or(con.BestCommentId, con.HasVerifiedComment)}" > 
+                                    <lightning:icon  iconName="utility:answer" alternativeText="Connected" size="x-small" title="xx-small size"
+                                                    class="slds-m-right_xx-small iconAnswer"/><span class="slds-text-color_success">Answered</span>
+                                </aura:if>
+                                <li class="slds-p-horizontal_large"><lightning:icon iconName="utility:like" alternativeText="Connected" size="x-small" title="xx-small size" 
+                                                                    class="slds-m-right_xx-small like" /> {!con.LikeCount}  </li>
+                                <li><lightning:icon iconName="utility:comments" alternativeText="Connected" size="x-small" title="xx-small size"
+                                                    class="slds-m-right_xx-small comment"/>{!con.CommentCount}</li>
+                            </div>
+                        </div>
+                    </div>
+                </aura:iteration> 
+            </aura:if>
+            <aura:if isTrue="{!v.hasNext}">
+                <div class="slds-p-top_x-large viewMore" style="text-align:center">
+                    <lightning:button variant="brand-outline" label="View More" title="Brand action" onclick="{! c.nextPage }" /> 
+                </div>
+            </aura:if> 
+            <aura:set attribute = "else">
+                <div class="slds-text-align_center slds-p-top_xx-large">
+                    <h1 class="slds-text-heading_medium">This filter begs your pardon</h1>
+                    <h3>No Questions with Selected Category to show.</h3>    
+                </div>
+            </aura:set>
+        </aura:if> 
+    </div> 
+</aura:component>

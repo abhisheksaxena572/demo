@@ -1,0 +1,4 @@
+<aura:component implements="force:appHostable,force:lightningQuickAction,forceCommunity:availableForAllPageTypes" access="global" >  
+   	<ltng:require styles="{!$Resource.modalWidthCss}"/>
+    <c:dragAndDrop2 onclose="{!c.closeQA}"></c:dragAndDrop2>
+</aura:component>
